@@ -202,3 +202,828 @@ footer .social a {
     font-size: 32px;
   }
 }
+
+
+
+/* --- Internship Page Specific Styles --- */
+
+.internship-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.page-title p {
+  font-size: 18px;
+  color: #ccc;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  flex-wrap: wrap; /* Allows filters to stack on smaller screens */
+}
+
+.filter-bar input, .filter-bar select {
+  flex-grow: 1; /* Allows inputs to grow and fill space */
+  padding: 12px;
+  font-size: 16px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.filter-bar button {
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+}
+
+
+/* Internship Listings Grid */
+.internship-listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* Individual Internship Card */
+.internship-card {
+  background: #222;
+  border-radius: 8px;
+  border-left: 4px solid #ff6600;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.internship-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card-header h3 {
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.card-header .company {
+  font-size: 16px;
+  color: #ccc;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+.card-details p {
+  color: #ddd;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.card-details p strong {
+  color: #aaa;
+}
+
+.card-footer {
+  margin-top: 20px;
+}
+
+.btn-apply {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #ff6600;
+  color: #fff;
+  padding: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.btn-apply:hover {
+  background: #e65500;
+}
+
+
+
+/* --- Events Page Specific Styles --- */
+
+.events-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+.event-month-group h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.event-month-group:first-child h2 {
+  margin-top: 0;
+}
+
+.event-card {
+  display: flex;
+  background: #222;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+  border: 1px solid #333;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+}
+
+.event-date {
+  background: #1a1a1a;
+  padding: 20px;
+  text-align: center;
+  color: #ff6600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 90px;
+}
+
+.event-date .day {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.event-date .month {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.event-details {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.event-details h3 {
+  font-size: 20px;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.event-details .meta {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.event-details .description {
+  font-size: 15px;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.event-action {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #333;
+}
+
+
+
+/* --- Training Page Specific Styles --- */
+
+.training-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+.training-category h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.training-category:first-of-type h2 {
+  margin-top: 0;
+}
+
+.training-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.training-card {
+  background: #222;
+  border: 1px solid #333;
+  border-top: 4px solid #ff6600;
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.training-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.training-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.training-card .description {
+  color: #ccc;
+  line-height: 1.6;
+  flex-grow: 1; /* Pushes meta/action to the bottom */
+  margin-bottom: 20px;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.skills-tags span {
+  background: #333;
+  color: #ddd;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #aaa;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.card-action .btn-primary {
+  width: 100%;
+  text-align: center;
+}
+
+/* Responsive adjustment for padding */
+@media (max-width: 768px) {
+  .training-page {
+    padding: 40px 5%;
+  }
+}
+
+
+
+/* --- Placements Page Specific Styles --- */
+
+.placement-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+/* Highlights Section */
+.placement-highlights {
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 8px;
+  margin: 40px 0;
+}
+
+.highlights-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.highlight-box .highlight-number {
+  display: block;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff6600;
+  margin-bottom: 5px;
+}
+
+.highlight-box p {
+  font-size: 16px;
+  color: #ccc;
+}
+
+/* Recruiters Section */
+.our-recruiters h2, .student-testimonials h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 25px;
+  align-items: center;
+}
+
+.logo-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.logo-item:hover {
+  transform: scale(1.05);
+}
+
+.logo-item img {
+  max-width: 100%;
+  height: auto;
+  max-height: 50px; /* Controls the height of logos */
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.logo-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Testimonials Section */
+.student-testimonials {
+  margin-top: 60px;
+}
+
+.testimonials-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.testimonial-card {
+  background: #222;
+  border-left: 4px solid #ff6600;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.testimonial-card .quote {
+  font-style: italic;
+  color: #ddd;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.testimonial-card .quote::before {
+  content: '“';
+  font-size: 48px;
+  color: #ff6600;
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  opacity: 0.3;
+}
+
+.student-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}
+
+.student-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff6600;
+}
+
+.student-details h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.student-details .company {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .placement-page {
+    padding: 40px 5%;
+  }
+}
+
+
+
+/* --- Center of Excellence Page Specific Styles --- */
+
+.coe-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+/* Intro Section */
+.coe-intro {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+.coe-intro h2 {
+  font-size: 22px;
+  color: #ff6600;
+  margin-bottom: 15px;
+}
+
+.coe-intro p, .coe-intro li {
+  color: #ccc;
+  line-height: 1.7;
+}
+
+.intro-benefits ul {
+  list-style: none;
+  padding: 0;
+}
+
+.intro-benefits li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Our CoEs Section */
+.our-coes h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.coe-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.coe-card {
+  background: #222;
+  border: 1px solid #333;
+  border-top: 4px solid #ff6600;
+  border-radius: 8px;
+  padding: 30px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.coe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.coe-card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #444;
+}
+
+.coe-card-header img {
+  height: 40px;
+  max-width: 120px;
+}
+
+.coe-card-header h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.coe-card p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.coe-card h4 {
+  color: #ff6600;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.coe-card ul {
+  list-style: disc;
+  padding-left: 20px;
+  color: #ccc;
+}
+
+.coe-card ul li {
+  margin-bottom: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .coe-intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .coe-page {
+    padding: 40px 5%;
+  }
+}
+
+
+
+/* --- Placement Committee Page Specific Styles --- */
+
+.committee-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+/* Role Section */
+.committee-role {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+}
+.committee-role h2 {
+  font-size: 22px;
+  color: #ff6600;
+  margin-bottom: 15px;
+}
+.committee-role p {
+  color: #ccc;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Section Titles */
+.faculty-coordinators h2, .student-coordinators h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Members Grid */
+.members-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.member-card {
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.member-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.member-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center; /* Ensures the face is centered */
+}
+
+.member-info {
+  padding: 20px;
+}
+
+.member-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+}
+
+.member-info .designation {
+  color: #aaa;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.contact-info a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background: #ff6600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.contact-info a:hover {
+  background: #e65500;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .committee-page {
+    padding: 40px 5%;
+  }
+}
+
+
+/* --- IIC & Incubation Page Specific Styles --- */
+
+.iic-page {
+  padding: 40px 10%;
+  background: #111;
+}
+
+/* Intro Section */
+.iic-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.intro-box {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 8px;
+  border-bottom: 3px solid #ff6600;
+}
+
+.intro-box h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #ff6600;
+}
+
+.intro-box p {
+  color: #ccc;
+  line-height: 1.7;
+}
+
+/* Startup Showcase Section */
+.startup-showcase h2 {
+  font-size: 24px;
+  color: #ff6600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.startups-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.startup-card {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.startup-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.startup-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #444;
+  background-color: #fff; /* For placeholder visibility */
+}
+
+.startup-card h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.startup-card .sector {
+  display: inline-block;
+  background: #333;
+  color: #ff6600;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.startup-card .description {
+  color: #ccc;
+  line-height: 1.6;
+  min-height: 50px; /* Helps align buttons */
+  margin-bottom: 20px;
+}
+
+/* Call to Action Section */
+.iic-cta {
+  background: linear-gradient(rgba(255, 102, 0, 0.1), rgba(17, 17, 17, 0.5)), #1a1a1a;
+  text-align: center;
+  padding: 50px;
+  border-radius: 8px;
+  margin-top: 60px;
+}
+
+.iic-cta h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.iic-cta p {
+  color: #ccc;
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.iic-cta .btn-primary {
+  padding: 15px 35px;
+  font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .iic-intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .iic-page {
+    padding: 40px 5%;
+  }
+}
