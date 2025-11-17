@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset Password</title>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
+    body {
+      display: grid;
+      place-items: center;
+      background-color: #fff;
+      padding: 24px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 14px;
+      border: 2px solid #000;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 28px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .logo {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: orange; display: grid; place-items: center;
+      font-weight: 700; font-size: 18px;
+    }
+    h1 { margin: 0; font-size: 20px; }
+
+    form { display: grid; gap: 14px; }
+    label { font-size: 14px; font-weight: 500; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1.5px solid #000;
+      transition: .2s;
+    }
+    input:focus {
+      border-color: orange;
+      box-shadow: 0 0 6px rgba(255,165,0,0.4);
+    }
+
+    .primary-btn {
+      border: none;
+      background: orange;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .primary-btn:hover { background: #000; color: #fff; }
+
+  </style>
+</head>
+
+<body>
+
+  <main class="login-card">
+    <div class="brand">
+      <div class="logo">R</div>
+      <h1>RESET PASSWORD</h1>
+    </div>
+
+    <form action="update-password" method="post">
+      <div>
+        <label for="newpass">New Password</label>
+        <input id="newpass" type="password" name="new_password" placeholder="Enter new password" required>
+      </div>
+
+      <div>
+        <label for="confirmpass">Confirm Password</label>
+        <input id="confirmpass" type="password" name="confirm_password" placeholder="Confirm password" required>
+      </div>
+
+      <button class="primary-btn" type="submit">RESET PASSWORD</button>
+    </form>
+  </main>
+
+</body>
+</html>

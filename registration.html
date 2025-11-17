@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register Page</title>
+
+  <style>
+    :root{
+      --black: #000000;
+      --white: #ffffff;
+      --orange: #ff6a00;
+      --muted-black: #111111;
+    }
+
+    * { box-sizing: border-box; }
+    html,body {
+      height:100%;
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--black);
+      background: linear-gradient(180deg,var(--white), #fff);
+    }
+
+    .page {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      background: radial-gradient(circle at top left, rgba(255,106,0,0.06), transparent 30%),
+                  radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 20%),
+                  var(--white);
+    }
+
+    .card {
+      width:100%;
+      max-width:520px;
+      border-radius:12px;
+      background:var(--white);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 2px solid rgba(255,106,0,0.12);
+      overflow:hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(90deg,var(--orange), #ff8a33 60%);
+      padding:20px 24px;
+      color:var(--white);
+    }
+
+    .card-header h2 {
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:0.2px;
+    }
+
+    .card-body {
+      padding:22px;
+    }
+
+    form .row {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    form .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display:block;
+      font-size:0.85rem;
+      margin-bottom:6px;
+      color:var(--muted-black);
+      font-weight:600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="password"] {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:2px solid rgba(0,0,0,0.12);
+      background:var(--white);
+      color:var(--black);
+      font-size:0.95rem;
+      outline:none;
+      transition: box-shadow .12s, border-color .12s;
+    }
+
+    input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 6px 18px rgba(255,106,0,0.08);
+    }
+
+    .note {
+      font-size:0.85rem;
+      color:var(--black);
+      opacity:0.75;
+      text-align:center;
+    }
+
+    .error {
+      color: var(--orange);
+      font-weight:700;
+      font-size:0.9rem;
+      margin-top:6px;
+    }
+
+    .actions {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:14px;
+    }
+
+    input[type="submit"],
+    .signup-btn {
+      border:none;
+      border-radius:10px;
+      font-weight:700;
+      padding:12px 22px;
+      cursor:pointer;
+      transition: transform .08s ease, box-shadow .08s;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+
+    input[type="submit"] {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .signup-btn {
+      background: var(--orange);
+      color: var(--white);
+      text-decoration:none;
+      text-align:center;
+    }
+
+    input[type="submit"]:hover,
+    .signup-btn:hover { filter:brightness(0.95); }
+
+    input[type="submit"]:active,
+    .signup-btn:active { transform: translateY(1px); }
+
+    @media (max-width:520px){
+      form .row { grid-template-columns: 1fr; }
+      .card { margin: 12px; }
+      .actions {
+        flex-direction:column;
+        gap:10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card" role="region" aria-label="Registration Form">
+      <div class="card-header">
+        <h2>Registration Form</h2>
+      </div>
+
+      <div class="card-body">
+        <form action="Registeration Form" method="post" onsubmit="return valid()">
+          <div class="row">
+            <div>
+              <label for="name">Full Name</label>
+              <input id="name" type="text" name="n" placeholder="Enter full name" required>
+            </div>
+
+            <div>
+              <label for="enroll">Enrollment</label>
+              <input id="enroll" type="text" name="rno" placeholder="Enter enrollment no." required>
+            </div>
+
+            <div>
+              <label for="branch">Branch</label>
+              <input id="branch" type="text" name="branch" placeholder="Enter branch" required>
+            </div>
+
+            <div>
+              <label for="email">Email Address</label>
+              <input id="email" type="email" name="mail" placeholder="Enter email" required>
+            </div>
+
+            <div>
+              <label for="mobile">Mobile no.</label>
+              <input id="mobile" type="text" pattern="[6789][0-9]{9}" name="mob" placeholder="Enter mobile no." required>
+            </div>
+
+            <div class="full">
+              <label for="dob">Date Of Birth</label>
+              <input id="dob" type="date" name="dob" required>
+            </div>
+
+            <div>
+              <label for="pwd1">Password</label>
+              <input id="pwd1" type="password" name="pwd" placeholder="Enter password" required>
+            </div>
+
+            <div>
+              <label for="pwd2">Confirm Password</label>
+              <input id="pwd2" type="password" placeholder="Confirm password" required>
+              <div id="one" class="error" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a href="login.html" class="signup-btn">Sign in</a>
+            <input type="submit" value="Register">
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function valid() {
+      const p1 = document.getElementById("pwd1").value;
+      const p2 = document.getElementById("pwd2").value;
+      const one = document.getElementById("one");
+      one.textContent = "";
+      if (p1 === p2) {
+        return true;
+      } else {
+        one.textContent = "Password not matched";
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
