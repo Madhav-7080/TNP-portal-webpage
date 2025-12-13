@@ -14,11 +14,11 @@ body {
 .top-bar {
   background: #0a0a0a;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .top-bar .container {
-  width: 90%;
+  width: 96;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -32,22 +32,27 @@ body {
 
 /* Header */
 header {
+  height: 60px;
   background: #fff;
   color: #000;
   padding: 15px 0;
 }
 
 .header-content {
-  width: 90%;
+  width: 95%;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.auth-buttons {
+      margin-left: 140px;
+      margin-right: -270px;
+}
+
 .logo img {
   width: 17vw;
-
 }
 
 .highlight {
@@ -58,25 +63,74 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 20px;
+  
 }
 
 nav ul li a {
+  margin-right: 20px;
   text-decoration: none;
   font-weight: 600;
   color: #000;
+
 }
 
 nav ul li a:hover {
   color: #ff6600;
 }
-
-.contact {
-  text-align: right;
-  font-size: 14px;
+nav{
+  margin-right:290px;
 }
 
-.ri-menu-line{
-  display:none;
+.auth-buttons {
+  margin-top:8px;
+}
+
+.auth-buttons button {
+  padding: 8px 15px;
+  margin-right: 15px;
+  justify-content: space-between;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.login-btn {
+  margin-top: -30px;
+  background-color: orangered;
+  color: #fff;
+
+}
+
+.signup-btn {
+  background-color: orangered;
+  color: #fff;
+
+  
+}
+
+.auth-buttons button:hover {
+  opacity: 0.85;
+}
+
+.ri-menu-line {
+  display: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* optional */
+}
+
+/* Prevent content from going under the navbar */
+body {
+    padding-top: 60px; /* adjust to match your header height */
 }
 
 
@@ -160,37 +214,171 @@ nav ul li a:hover {
   color: #000;
 }
 
-/* Activities */
+/* =======================
+   ACTIVITIES / CARDS
+   ======================= */
+
+/* BACKGROUND FOR EACH SECTION (desktop) */
 .activities {
-  padding: 60px 10%;
-  background: #1a1a1a;
-  text-align: center;
+  background: white;
 }
 
-.activities h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #ff6600;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-}
-
+/* GENERAL CARD STYLE (desktop) */
 .card {
-  background: #222;
-  padding: 30px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: transform 0.3s, background 0.3s;
+  height: 84vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+  box-sizing: border-box;
+  background: white;
+  /* base white section */
+  border-bottom: 2px solid #eee;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  background: #ff6600;
-  color: #fff;
+/* ALTERNATE BACKGROUNDS FOR VARIATION (desktop) */
+.card:nth-child(even) {
+  background: #f7f7f7;
+  background-color: #FEEDE6;
+}
+
+/* IMAGE WRAPPER (desktop) */
+.img-box {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.img-box img {
+  height: 55vh;
+  width: 80%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* CONTENT (desktop) */
+.content-box {
+  width: 55%;
+  color: black;
+}
+
+.content-box h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+  color: #ff7a00;
+  /* ORANGE heading */
+  font-weight: 900;
+}
+
+.content-box p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* BUTTON */
+.btn {
+  padding: 12px 30px;
+  border: 2px solid #ff7a00;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  background: #ff7a00;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: white;
+  color: #ff7a00;
+  border-color: #ff7a00;
+}
+
+/* LEFT layout (1,3,5,7) */
+.card.left {
+  flex-direction: row;
+}
+
+/* RIGHT layout (2,4,6) */
+.card.right {
+  flex-direction: row-reverse;
+}
+
+/* ======= MOBILE CARD BEHAVIOUR (ALL ACTIVITIES SAME DESIGN) ======= */
+@media (max-width: 900px) {
+  .activities {
+    background: #111;
+    /* blend with site background for a continuous dark feel */
+  }
+
+  .card {
+    background: #111;
+    /* transparent black with low opacity */
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    width: 100%;
+    padding: 40px 20px;
+    border-bottom: none;
+    /* remove desktop separator line */
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* spacing between "panels" */
+  }
+
+  /* make ALL cards same – remove alternating backgrounds */
+  .card:nth-child(even) {
+    background: #111;
+  }
+
+  /* hide images completely in mobile so text sits on glass panel only */
+  .img-box {
+    display: none;
+  }
+
+  /* glass-effect content block */
+  .content-box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+
+    background: #111;
+    /* transparent black layer */
+    /* backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); */
+
+    padding: 24px 20px;
+    border-radius: 0px;
+
+    color: #fff;
+  }
+
+  .content-box h2 {
+    text-align: center;
+    margin-bottom: 16px;
+    color: #ff7a00;
+    font-size: 28px;
+  }
+
+  .content-box p {
+    color: #f3f3f3;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    border-color: #ff7a00;
+    background: #ff7a00;
+    color: #fff;
+  }
 }
 
 /* Footer */
@@ -243,8 +431,6 @@ footer .social a {
   }
 }
 
-
-
 /* --- Internship Page Specific Styles --- */
 
 .internship-page {
@@ -276,13 +462,11 @@ footer .social a {
   border-radius: 8px;
   margin-bottom: 40px;
   flex-wrap: wrap;
-  /* Allows filters to stack on smaller screens */
 }
 
 .filter-bar input,
 .filter-bar select {
   flex-grow: 1;
-  /* Allows inputs to grow and fill space */
   padding: 12px;
   font-size: 16px;
   background: #222;
@@ -296,7 +480,6 @@ footer .social a {
   font-size: 16px;
   border: none;
 }
-
 
 /* Internship Listings Grid */
 .internship-listings {
@@ -365,8 +548,6 @@ footer .social a {
 .btn-apply:hover {
   background: #e65500;
 }
-
-
 
 /* --- Events Page Specific Styles --- */
 
@@ -457,8 +638,6 @@ footer .social a {
   border-left: 1px solid #333;
 }
 
-
-
 /* --- Training Page Specific Styles --- */
 
 .training-page {
@@ -510,7 +689,6 @@ footer .social a {
   color: #ccc;
   line-height: 1.6;
   flex-grow: 1;
-  /* Pushes meta/action to the bottom */
   margin-bottom: 20px;
 }
 
@@ -551,8 +729,6 @@ footer .social a {
     padding: 40px 5%;
   }
 }
-
-
 
 /* --- Placements Page Specific Styles --- */
 
@@ -625,7 +801,6 @@ footer .social a {
   max-width: 100%;
   height: auto;
   max-height: 50px;
-  /* Controls the height of logos */
   filter: grayscale(100%);
   opacity: 0.8;
   transition: filter 0.3s, opacity 0.3s;
@@ -705,8 +880,6 @@ footer .social a {
     padding: 40px 5%;
   }
 }
-
-
 
 /* --- Center of Excellence Page Specific Styles --- */
 
@@ -833,8 +1006,6 @@ footer .social a {
   }
 }
 
-
-
 /* --- Placement Committee Page Specific Styles --- */
 
 .committee-page {
@@ -902,7 +1073,6 @@ footer .social a {
   height: 280px;
   object-fit: cover;
   object-position: center;
-  /* Ensures the face is centered */
 }
 
 .member-info {
@@ -942,7 +1112,6 @@ footer .social a {
     padding: 40px 5%;
   }
 }
-
 
 /* --- IIC & Incubation Page Specific Styles --- */
 
@@ -1015,7 +1184,6 @@ footer .social a {
   margin-bottom: 15px;
   border: 3px solid #444;
   background-color: #fff;
-  /* For placeholder visibility */
 }
 
 .startup-card h3 {
@@ -1039,7 +1207,6 @@ footer .social a {
   color: #ccc;
   line-height: 1.6;
   min-height: 50px;
-  /* Helps align buttons */
   margin-bottom: 20px;
 }
 
@@ -1083,6 +1250,7 @@ footer .social a {
 
 /* Responsive nav*/
 @media (max-width: 600px) {
+
   /* hide the nav by default on mobile */
   nav ul {
     display: none;
@@ -1090,51 +1258,46 @@ footer .social a {
     width: 100%;
     gap: 10px;
     margin-top: 10px;
-  } 
+  }
 
-   .contact {
+  .contact {
     width: 100%;
     margin-top: 10px;
-  } 
+  }
 
- .contact {
+  .contact {
     display: none;
   }
-    .container.header-content {
-  
-    /* align-items: center; */
-    justify-content: space-between; /* logo left, icon right */
-  
-  }
+  .login-btn,
+.signup-btn {
+  display: none;
+}
 
+
+  .container.header-content {
+    justify-content: space-between;
+  }
 
   /* show hamburger icon */
   .ri-menu-line {
     display: block;
-    align-self: flex-end; 
+    align-self: flex-end;
     font-size: 24px;
-    cursor: pointer; 
+    cursor: pointer;
     display: flex;
     margin: -25px 0px 0px 0px;
-  
   }
-    .logo img {
 
-     width: 200px;
-     margin:0px 100px 0px 0px;
-
-  
-    
-   
-
+  .logo img {
+    width: 200px;
+    margin: 0px 100px 0px 0px;
   }
 }
+
 /* =========================
    MOBILE NAVIGATION (≤600px)
    ========================= */
 @media (max-width: 600px) {
-
-  /* Keep header stable */
   .container.header-content {
     position: relative;
     display: flex;
@@ -1143,8 +1306,8 @@ footer .social a {
     padding: 12px 16px;
   }
 
-  /* Hamburger icon stays fixed, doesn't jump */
   .ri-menu-line {
+    top: -13px;
     display: block !important;
     position: relative;
     z-index: 1001;
@@ -1153,19 +1316,35 @@ footer .social a {
     cursor: pointer;
   }
 
-  /* Hide contact info */
+.logo{
+  margin-top:-10px;
+}
+
   .contact {
     display: none;
   }
+    .login-btn,
+.signup-btn {
+  display:block;
 
-  /* Drop-down nav (hidden by default) */
+}
+.auth-buttons {
+  display: flex;
+  gap: 10px;               
+  align-items: center;  
+  margin-left: 55px;
+}
+
+
+
+
   nav ul {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 100%;         /* just below header */
-    right: 0;          /* align with header’s right edge */
-    width: 80%;        /* narrower menu area */
+    top: 40%;
+    right: 0;
+    width: 80%;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -1176,12 +1355,14 @@ footer .social a {
     z-index: 1000;
   }
 
-  /* When active, show it */
   nav ul.active {
     display: flex;
   }
+  button signup-btn{
+    display:none;
+  }
 
-  /* Links inside the dropdown */
+
   nav ul li a {
     display: block;
     color: #000;
@@ -1194,9 +1375,12 @@ footer .social a {
   nav ul li a:hover {
     background: #f5f5f5;
   }
+
+
 }
 
-/* /* DESKTOP NAVIGATION (≥601px) */
+
+/* DESKTOP NAVIGATION (≥601px) */
 @media (min-width: 601px) {
   nav ul {
     display: flex !important;
@@ -1214,6 +1398,7 @@ footer .social a {
   .contact {
     display: block !important;
   }
-}
+ 
 
+}
 

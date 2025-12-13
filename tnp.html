@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T&P Portal - Sri Aurobindo Group of Institutions</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
-    rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="tnp.css">
 </head>
+
 <body>
   <!-- Top Bar -->
   <div class="top-bar">
@@ -22,22 +22,22 @@
   <header>
     <div class="container header-content">
       <div class="logo">
-     <img src=".vscode\assets\tmp.png" alt="logo">
+        <img src=".vscode\assets\tmp.png" alt="logo">
       </div>
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">Discover</a></li>
-          <li><a href="#">Train</a></li>
-          <li><a href="#">Apply</a></li>
-          <li><a href="#">Studio</a></li>
+          <li><a href="#Train">Train</a></li>
+          <li><a href="#event">events</a></li>
+          <li><a href="#placements">placements</a></li>
           <li><a href="#">Contact</a></li>
+          <li class="auth-buttons">
+            <button class="login-btn" onclick="location.href='login.html'">Login</button>
+            <button class="signup-btn" onclick="location.href='registration.html'">Signup</button>
+
+          </li>
         </ul>
       </nav>
-      <div class="contact">
-        <p>📞 +91-7222985526</p>
-        <p>✉️ sudhir.gupta@sait.ac.in</p>
-      </div>
       <i class="ri-menu-line"></i>
     </div>
   </header>
@@ -50,7 +50,7 @@
       <h1>Empowering Students<br><span class="orange">Connecting Opportunities</span></h1>
       <p>Internships, Trainings, Placements & Beyond – Your journey starts here.</p>
       <div class="buttons">
-        <a href="#" class="btn-primary">Discover More</a>
+        <a href="#nextSection" class="btn-primary">Discover More</a>
         <a href="registration.html" class="btn-secondary">Get Started</a>
       </div>
     </div>
@@ -58,16 +58,101 @@
 
   <!-- Activities -->
   <section class="activities">
-    <h2>Training & Placement Activities</h2>
-    <div class="cards">
-      <a href="tnpint.html" style="text-decoration: none; color: white ;"><div class="card">Internships</div></a>
-      <a href="tnpeve.html" style="text-decoration: none; color: white ;"><div class="card">Events</div></a>
-      <a href="tnptra.html" style="text-decoration: none; color: white ;"><div class="card">Training</div></a>
-      <a href="tnppla.html" style="text-decoration: none; color: white ;"><div class="card">Placements</div></a>
-      <a href="tnpcoe.html" style="text-decoration: none; color: white ;"><div class="card">Center of Excellence</div></a>
-      <a href="tnpplc.html" style="text-decoration: none; color: white ;"><div class="card">Placement committees</div></a>
-      <a href="tnpiic.html" style="text-decoration: none; color: white ;"><div class="card">IIC & Incubation</div></a>
+
+    <div class="card card1 left" id="nextSection">
+      <div class="img-box">
+        <img src="assets\card.1.avif" alt="">
+      </div>
+      <div class="content-box">
+        <h2>Internships</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem consequatur corrupti aut mollitia dolorem,
+          distinctio quo aliquid aspernatur quaerat ipsa. Sed nam officiis similique aliquam earum id itaque hic
+          repellendus? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio dolorum at commodi molestiae
+          ullam nesciunt, omnis quasi explicabo doloribus, fuga sunt odio aliquid animi voluptatibus modi repellat
+          quibusdam dolorem hic.</p>
+        <a href="tnpint.html" class="btn">Explore Now</a>
+      </div>
     </div>
+
+    <div class="card card2 right" id="event">
+      <div class="img-box">
+        <img src="assets\card.2.avif" alt="">
+      </div>
+      <div class="content-box">
+        <h2>Events</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laborum labore ex. Illum quasi ex praesentium,
+          sapiente sunt, tempore distinctio excepturi aspernatur soluta libero magni vel voluptatem, in molestiae.
+          Dignissimos? Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sequi aperiam quo nesciunt
+          temporibus amet nostrum blanditiis cumque nobis assumenda! Error neque amet exercitationem quia inventore,
+          temporibus dolore fugit consequatur!</p>
+        <a href="tnpeve.html" class="btn">Explore Now</a>
+      </div>
+    </div>
+
+    <div class="card card3 left" id="Train">
+      <div class="img-box">
+        <img src="assets\card.3.avif" alt="">
+      </div>
+      <div class="content-box">
+        <h2>Training</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo quod, corrupti praesentium iure dolore
+          reprehenderit voluptatum eligendi nulla labore cupiditate esse incidunt explicabo, amet beatae saepe? Quam
+          recusandae quidem assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, vel.
+          Impedit delectus adipisci voluptatum. Vel aliquid officia cum facere vitae ex,
+          ut architecto, quisquam error optio porro unde tenetur eos.</p>
+        <a href="tnptra.html" class="btn">Explore Now</a>
+      </div>
+    </div>
+
+    <div class="card card4 right" id="placements">
+      <div class="img-box">
+        <img src="assets\placements.jpg" alt="">
+      </div>
+      <div class="content-box">
+        <h2>Placements</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam sint possimus dicta, dolores perspiciatis
+          commodi excepturi, molestiae quo alias atque nisi quod suscipit eligendi,
+          dignissimos vel ratione quas rerum nostrum!Lorem</p>
+        <a href="tnppla.html" class="btn">Explore Now</a>
+      </div>
+    </div>
+
+    <div class="card card5 left">
+      <div class="img-box">
+        <img src="your-image5.jpg" alt="">
+      </div>
+      <div class="content-box">
+        <h2>Center of Excellence</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea mollitia id quidem ab reprehenderit. Sequi at
+          quisquam adipisci qui dignissimos pariatur a maxime ipsa soluta. Earum voluptatibus officiis dolorem aliquid.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, asperiores illum. Sapiente veritatis
+          tenetur excepturi numquam, accusamus quia eaque laborum quod, laboriosam quaerat atque? Distinctio dolores nam
+          qui sed quaerat.</p>
+        <a href="tnpcoe.html" class="btn">Explore Now</a>
+      </div>
+    </div>
+
+
+    <div class="card card6 right">
+      <div class="img-box">
+        <img src="your-image7.jpg" alt="">
+      </div>
+      <div class="content-box">
+        <h2>IIC & Incubation</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at voluptatibus fuga blanditiis labore
+          laudantium modi adipisci corrupti ut enim voluptates minima unde autem consequatur et, consectetur vitae
+          perspiciatis commodi! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore eum voluptatum
+          incidunt velit, asperiores iure architecto nemo cupiditate corporis ad illo tempora suscipit animi voluptas
+          sunt illum modi dolorum fuga.</p>
+        <a href="tnpiic.html" class="btn">Explore Now</a>
+      </div>
+    </div>
+
+  </section>
+
+
+  </section>
+
   </section>
 
   <!-- Footer -->
@@ -75,8 +160,8 @@
     <div class="container footer-content">
       <p>&copy; 2025 Sri Aurobindo Group of Institutions | T&P Cell</p>
       <div class="links">
-        <a href="#">Privacy Policy</a> | 
-        <a href="#">Helpdesk</a> | 
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Helpdesk</a> |
         <a href="#">Feedback</a>
       </div>
       <div class="social">
@@ -88,4 +173,5 @@
   </footer>
   <script src="script.js"></script>
 </body>
+
 </html>

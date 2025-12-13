@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-topbar">Admin Panel</div>
+
+<div class="sidebar">
+  <h2>TNP Admin</h2>
+   <div class="menu-item active">Dashboard</div>
+  <div class="menu-item" onclick="location.href='admin-events.html'">Events</div>
+  <div class="menu-item" onclick="location.href='admin-internships.html'">Internships</div>
+  <div class="menu-item" onclick="location.href='admin-training.html'">Training</div>
+  <div class="menu-item" onclick="location.href='admin-placements.html'">Placements</div>
+</div>
+
+<div class="main">
+  <h1>Dashboard</h1>
+
+  <table>
+    <tr><th>Section</th><th>Total Records</th></tr>
+    <tr><td>Events</td><td id="e"></td></tr>
+    <tr><td>Internships</td><td id="i"></td></tr>
+    <tr><td>Training</td><td id="t"></td></tr>
+    <tr><td>Placements</td><td id="p"></td></tr>
+  </table>
+</div>
+
+<script>
+e.innerText = JSON.parse(localStorage.getItem("tnp_events")||"[]").length;
+i.innerText = JSON.parse(localStorage.getItem("tnp_internships")||"[]").length;
+t.innerText = JSON.parse(localStorage.getItem("tnp_training")||"[]").length;
+p.innerText = JSON.parse(localStorage.getItem("tnp_placements")||"[]").length;
+</script>
+
+</body>
+</html>

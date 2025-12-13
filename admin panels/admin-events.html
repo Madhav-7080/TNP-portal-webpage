@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Events</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-topbar">Admin Panel</div>
+
+<div class="sidebar">
+  <h2>TNP Admin</h2>
+   <div class="menu-item" onclick="location.href='admin.html'">Dashboard</div>
+  <div class="menu-item active">Events</div>
+  <div class="menu-item" onclick="location.href='admin-internships.html'">Internships</div>
+  <div class="menu-item" onclick="location.href='admin-training.html'">Training</div>
+  <div class="menu-item" onclick="location.href='admin-placements.html'">Placements</div>
+</div>
+
+<div class="main">
+  <h1>Events</h1>
+  <button class="add-btn" onclick="openEventModal()">+ Add Event</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="eventTable"></tbody>
+  </table>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-bg" id="eventModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="eventTitle">Add Event</h2>
+      <button class="btn cancel" onclick="closeEventModal()">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label>Event Name</label>
+        <input id="ename">
+      </div>
+      <div class="form-row">
+        <label>Date</label>
+        <input type="date" id="edate">
+      </div>
+      <div class="form-row">
+        <label>Venue</label>
+        <input id="evenue">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closeEventModal()">Cancel</button>
+      <button class="btn" onclick="saveEvent()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let eIndex = -1;
+
+function loadEvents(){
+  return JSON.parse(localStorage.getItem("tnp_events") || "[]");
+}
+function saveEvents(data){
+  localStorage.setItem("tnp_events", JSON.stringify(data));
+}
+function renderEvents(){
+  const data = loadEvents();
+  eventTable.innerHTML = "";
+  data.forEach((e,i)=>{
+    eventTable.innerHTML += `
+      <tr>
+        <td>${e.name}</td>
+        <td>${e.date}</td>
+        <td>${e.venue}</td>
+        <td>
+          <button class="edit-btn" onclick="editEvent(${i})">Edit</button>
+          <button class="del-btn" onclick="delEvent(${i})">Delete</button>
+        </td>
+      </tr>`;
+  });
+}
+function openEventModal(){
+  eIndex=-1; ename.value=""; edate.value=""; evenue.value="";
+  eventTitle.innerText="Add Event";
+  eventModal.style.display="flex";
+}
+function closeEventModal(){ eventModal.style.display="none"; }
+function saveEvent(){
+  const data=loadEvents();
+  const obj={name:ename.value,date:edate.value,venue:evenue.value};
+  if(!obj.name){alert("Name required");return;}
+  eIndex==-1?data.push(obj):data[eIndex]=obj;
+  saveEvents(data); closeEventModal(); renderEvents();
+}
+function editEvent(i){
+  const e=loadEvents()[i]; eIndex=i;
+  ename.value=e.name; edate.value=e.date; evenue.value=e.venue;
+  eventTitle.innerText="Edit Event";
+  eventModal.style.display="flex";
+}
+function delEvent(i){
+  if(confirm("Delete?")){
+    const d=loadEvents(); d.splice(i,1); saveEvents(d); renderEvents();
+  }
+}
+renderEvents();
+</script>
+</body>
+</html>

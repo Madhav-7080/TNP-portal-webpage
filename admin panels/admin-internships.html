@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Internships</title>
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- PDF LIBRARIES -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+<div class="admin-topbar">Admin Panel</div>
+
+<div class="sidebar">
+  <h2>TNP Admin</h2>
+  <div class="menu-item " onclick="location.href='admin.html'">Dashboard</div>
+  <div class="menu-item" onclick="location.href='admin-events.html'">Events</div>
+  <div class="menu-item active">Internships</div>
+  <div class="menu-item" onclick="location.href='admin-training.html'">Training</div>
+  <div class="menu-item" onclick="location.href='admin-placements.html'">Placements</div>
+</div>
+
+<div class="main">
+  <h1>Internships</h1>
+
+  <button class="add-btn" onclick="openInternshipModal()">+ Add Internship</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Organization</th>
+        <th>Location</th>
+        <th>Stipend</th>
+        <th>Duration</th>
+        <th>Last Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="internshipTable"></tbody>
+  </table>
+</div>
+
+<!-- ================= INTERNSHIP MODAL ================= -->
+<div class="modal-bg" id="internshipModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="internshipTitle">Add Internship</h2>
+      <button class="btn cancel" onclick="closeInternshipModal()">X</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-row"><label>Name</label><input id="iname"></div>
+      <div class="form-row"><label>Organization</label><input id="iorg"></div>
+      <div class="form-row"><label>Location</label><input id="iloc"></div>
+      <div class="form-row"><label>Stipend</label><input id="istipend"></div>
+      <div class="form-row"><label>Duration</label><input id="idur"></div>
+      <div class="form-row"><label>Last Date</label><input type="date" id="ild"></div>
+      <div class="form-row"><label>Description</label><textarea id="idesc"></textarea></div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closeInternshipModal()">Cancel</button>
+      <button class="btn" onclick="saveInternship()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APPLICANTS MODAL ================= -->
+<div class="modal-bg" id="applicantModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="applicantTitle">Applicants</h2>
+      <button class="btn cancel" onclick="closeApplicantModal()">X</button>
+    </div>
+
+    <div class="modal-body">
+      <button class="add-btn" onclick="exportApplicantsPDF()">Export Applicants PDF</button>
+      <br><br>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Resume</th>
+          </tr>
+        </thead>
+        <tbody id="applicantTable"></tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closeApplicantModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= INTERNSHIP CRUD ================= */
+
+let editIndex = -1;
+let currentInternshipIndex = -1;
+
+const IKEY = "tnp_internships";
+const AKEY = "tnp_internship_applicants";
+
+const loadInternships = () => JSON.parse(localStorage.getItem(IKEY) || "[]");
+const saveInternships = d => localStorage.setItem(IKEY, JSON.stringify(d));
+
+const loadApplicants = () => JSON.parse(localStorage.getItem(AKEY) || "{}");
+
+function renderInternships(){
+  internshipTable.innerHTML = "";
+  loadInternships().forEach((i,idx)=>{
+    internshipTable.innerHTML += `
+      <tr>
+        <td>${i.name}</td>
+        <td>${i.org}</td>
+        <td>${i.loc}</td>
+        <td>${i.stipend}</td>
+        <td>${i.dur}</td>
+        <td>${i.ld}</td>
+        <td>
+          <button class="edit-btn" onclick="editInternship(${idx})">Edit</button>
+          <button class="del-btn" onclick="deleteInternship(${idx})">Delete</button>
+          <button class="edit-btn" style="background:#333" onclick="viewApplicants(${idx})">Applicants</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+function openInternshipModal(){
+  editIndex = -1;
+  document.querySelectorAll("#internshipModal input, #internshipModal textarea")
+    .forEach(e=>e.value="");
+  internshipTitle.innerText = "Add Internship";
+  internshipModal.style.display = "flex";
+}
+
+function closeInternshipModal(){ internshipModal.style.display = "none"; }
+
+function saveInternship(){
+  const obj = {
+    name: iname.value,
+    org: iorg.value,
+    loc: iloc.value,
+    stipend: istipend.value,
+    dur: idur.value,
+    ld: ild.value,
+    desc: idesc.value
+  };
+  if(!obj.name) return alert("Internship name required");
+
+  const data = loadInternships();
+  editIndex === -1 ? data.push(obj) : data[editIndex] = obj;
+  saveInternships(data);
+  closeInternshipModal();
+  renderInternships();
+}
+
+function editInternship(i){
+  const o = loadInternships()[i];
+  editIndex = i;
+  iname.value=o.name; iorg.value=o.org; iloc.value=o.loc;
+  istipend.value=o.stipend; idur.value=o.dur; ild.value=o.ld; idesc.value=o.desc;
+  internshipTitle.innerText="Edit Internship";
+  internshipModal.style.display="flex";
+}
+
+function deleteInternship(i){
+  if(confirm("Delete internship?")){
+    const d=loadInternships();
+    d.splice(i,1);
+    saveInternships(d);
+    renderInternships();
+  }
+}
+
+/* ================= APPLICANTS ================= */
+
+function viewApplicants(index){
+  currentInternshipIndex = index;
+  const interns = loadInternships();
+  const apps = loadApplicants()[index] || [];
+
+  applicantTitle.innerText = "Applicants for: " + interns[index].name;
+  applicantTable.innerHTML = "";
+
+  if(apps.length === 0){
+    applicantTable.innerHTML = `<tr><td colspan="4">No applicants yet</td></tr>`;
+  } else {
+    apps.forEach(a=>{
+      applicantTable.innerHTML += `
+        <tr>
+          <td>${a.name}</td>
+          <td>${a.email}</td>
+          <td>${a.phone}</td>
+          <td><a href="${a.resume}" target="_blank">View</a></td>
+        </tr>
+      `;
+    });
+  }
+
+  applicantModal.style.display = "flex";
+}
+
+function closeApplicantModal(){
+  applicantModal.style.display = "none";
+}
+
+/* ================= EXPORT PDF ================= */
+
+function exportApplicantsPDF(){
+  const apps = loadApplicants()[currentInternshipIndex] || [];
+  if(apps.length === 0){
+    alert("No applicants to export");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.text("Internship Applicants", 14, 15);
+
+  doc.autoTable({
+    startY: 25,
+    head: [["Name", "Email", "Phone", "Resume"]],
+    body: apps.map(a => [a.name, a.email, a.phone, a.resume]),
+    theme: "grid"
+  });
+
+  doc.save("internship_applicants.pdf");
+}
+
+/* ================= INIT ================= */
+renderInternships();
+
+/* --------- SAMPLE DATA (OPTIONAL) ---------
+localStorage.setItem("tnp_internship_applicants", JSON.stringify({
+  0:[
+    {name:"Amit Patel",email:"amit@gmail.com",phone:"9876543210",resume:"#"},
+    {name:"Riya Sharma",email:"riya@gmail.com",phone:"9123456789",resume:"#"}
+  ]
+}));
+------------------------------------------- */
+</script>
+
+</body>
+</html>
