@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Placements</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-topbar">Admin Panel</div>
+
+<div class="sidebar">
+  <h2>TNP Admin</h2>
+  <div class="menu-item" onclick="location.href='admin.html'">Dashboard</div>
+  <div class="menu-item" onclick="location.href='admin-events.html'">Events</div>
+  <div class="menu-item" onclick="location.href='admin-internships.html'">Internships</div>
+  <div class="menu-item" onclick="location.href='admin-training.html'">Training</div>
+  <div class="menu-item active">Placements</div>
+</div>
+
+<div class="main">
+  <h1>Placements</h1>
+  <button class="add-btn" onclick="openPlacementModal()">+ Add Placement</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Role</th>
+        <th>Package</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="placementTable"></tbody>
+  </table>
+</div>
+
+<div class="modal-bg" id="placementModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="pTitle">Add Placement</h2>
+      <button class="btn cancel" onclick="closePlacementModal()">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row"><label>Company</label><input id="pcompany"></div>
+      <div class="form-row"><label>Role</label><input id="prole"></div>
+      <div class="form-row"><label>Package</label><input id="ppackage"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closePlacementModal()">Cancel</button>
+      <button class="btn" onclick="savePlacement()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let pIndex=-1;
+const keyP="tnp_placements";
+const loadP=()=>JSON.parse(localStorage.getItem(keyP)||"[]");
+const saveP=d=>localStorage.setItem(keyP,JSON.stringify(d));
+
+function renderP(){
+  placementTable.innerHTML="";
+  loadP().forEach((p,i)=>{
+    placementTable.innerHTML+=`
+    <tr>
+      <td>${p.company}</td>
+      <td>${p.role}</td>
+      <td>${p.package}</td>
+      <td>
+        <button class="edit-btn" onclick="editP(${i})">Edit</button>
+        <button class="del-btn" onclick="delP(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+}
+function openPlacementModal(){
+  pIndex=-1; pcompany.value=""; prole.value=""; ppackage.value="";
+  pTitle.innerText="Add Placement"; placementModal.style.display="flex";
+}
+function closePlacementModal(){placementModal.style.display="none";}
+function savePlacement(){
+  const d=loadP();
+  const o={company:pcompany.value,role:prole.value,package:ppackage.value};
+  if(!o.company)return alert("Company required");
+  pIndex==-1?d.push(o):d[pIndex]=o;
+  saveP(d); closePlacementModal(); renderP();
+}
+function editP(i){
+  const p=loadP()[i]; pIndex=i;
+  pcompany.value=p.company; prole.value=p.role; ppackage.value=p.package;
+  pTitle.innerText="Edit Placement"; placementModal.style.display="flex";
+}
+function delP(i){
+  if(confirm("Delete?")){const d=loadP();d.splice(i,1);saveP(d);renderP();}
+}
+renderP();
+</script>
+</body>
+</html>

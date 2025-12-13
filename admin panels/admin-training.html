@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Training</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-topbar">Admin Panel</div>
+
+<div class="sidebar">
+  <h2>TNP Admin</h2>
+   <div class="menu-item" onclick="location.href='admin.html'">Dashboard</div>
+  <div class="menu-item" onclick="location.href='admin-events.html'">Events</div>
+  <div class="menu-item" onclick="location.href='admin-internships.html'">Internships</div>
+   <div class="menu-item active">Traning</div>
+  <div class="menu-item" onclick="location.href='admin-placements.html'">Placements</div>
+</div>
+
+<div class="main">
+  <h1>Training</h1>
+  <button class="add-btn" onclick="openTrainingModal()">+ Add Training</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Program</th>
+        <th>Trainer</th>
+        <th>Duration</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="trainingTable"></tbody>
+  </table>
+</div>
+
+<div class="modal-bg" id="trainingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="tTitle">Add Training</h2>
+      <button class="btn cancel" onclick="closeTrainingModal()">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row"><label>Program</label><input id="tname"></div>
+      <div class="form-row"><label>Trainer</label><input id="ttrainer"></div>
+      <div class="form-row"><label>Duration</label><input id="tduration"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closeTrainingModal()">Cancel</button>
+      <button class="btn" onclick="saveTraining()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let tIndex=-1;
+const key="tnp_training";
+const load=()=>JSON.parse(localStorage.getItem(key)||"[]");
+const save=d=>localStorage.setItem(key,JSON.stringify(d));
+
+function render(){
+  trainingTable.innerHTML="";
+  load().forEach((t,i)=>{
+    trainingTable.innerHTML+=`
+    <tr>
+      <td>${t.name}</td>
+      <td>${t.trainer}</td>
+      <td>${t.duration}</td>
+      <td>
+        <button class="edit-btn" onclick="edit(${i})">Edit</button>
+        <button class="del-btn" onclick="del(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+}
+function openTrainingModal(){
+  tIndex=-1; tname.value=""; ttrainer.value=""; tduration.value="";
+  tTitle.innerText="Add Training"; trainingModal.style.display="flex";
+}
+function closeTrainingModal(){trainingModal.style.display="none";}
+function saveTraining(){
+  const d=load();
+  const o={name:tname.value,trainer:ttrainer.value,duration:tduration.value};
+  if(!o.name)return alert("Program required");
+  tIndex==-1?d.push(o):d[tIndex]=o;
+  save(d); closeTrainingModal(); render();
+}
+function edit(i){
+  const t=load()[i]; tIndex=i;
+  tname.value=t.name; ttrainer.value=t.trainer; tduration.value=t.duration;
+  tTitle.innerText="Edit Training"; trainingModal.style.display="flex";
+}
+function del(i){
+  if(confirm("Delete?")){const d=load();d.splice(i,1);save(d);render();}
+}
+render();
+</script>
+</body>
+</html>
