@@ -3,30 +3,42 @@
 <head>
   <title>Admin - Events</title>
   <link rel="stylesheet" href="admin.css">
+
+  <!-- PDF LIBRARIES -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
+<!-- ================= TOP BAR ================= -->
 <div class="admin-topbar">Admin Panel</div>
 
+<!-- ================= SIDEBAR ================= -->
 <div class="sidebar">
   <h2>TNP Admin</h2>
-   <div class="menu-item" onclick="location.href='admin.html'">Dashboard</div>
+  <div class="menu-item" onclick="location.href='admin.html'">Dashboard</div>
   <div class="menu-item active">Events</div>
   <div class="menu-item" onclick="location.href='admin-internships.html'">Internships</div>
   <div class="menu-item" onclick="location.href='admin-training.html'">Training</div>
   <div class="menu-item" onclick="location.href='admin-placements.html'">Placements</div>
 </div>
 
+<!-- ================= MAIN ================= -->
 <div class="main">
   <h1>Events</h1>
+
   <button class="add-btn" onclick="openEventModal()">+ Add Event</button>
 
   <table>
     <thead>
       <tr>
         <th>Name</th>
+        <th>Location</th>
         <th>Date</th>
-        <th>Venue</th>
+        <th>Duration</th>
+        <th>Year</th>
+        <th>Branch</th>
+        <th>Description</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -34,27 +46,51 @@
   </table>
 </div>
 
-<!-- EVENT MODAL -->
+<!-- ================= ADD / EDIT EVENT MODAL ================= -->
 <div class="modal-bg" id="eventModal">
   <div class="modal">
     <div class="modal-header">
       <h2 id="eventTitle">Add Event</h2>
       <button class="btn cancel" onclick="closeEventModal()">X</button>
     </div>
+
     <div class="modal-body">
       <div class="form-row">
-        <label>Event Name</label>
+        <label>Name</label>
         <input id="ename">
       </div>
+
+      <div class="form-row">
+        <label>Location</label>
+        <input id="elocation">
+      </div>
+
       <div class="form-row">
         <label>Date</label>
         <input type="date" id="edate">
       </div>
+
       <div class="form-row">
-        <label>Venue</label>
-        <input id="evenue">
+        <label>Duration</label>
+        <input id="eduration">
+      </div>
+
+      <div class="form-row">
+        <label>Year</label>
+        <input id="eyear">
+      </div>
+
+      <div class="form-row">
+        <label>Branch</label>
+        <input id="ebranch">
+      </div>
+
+      <div class="form-row">
+        <label>Description</label>
+        <textarea id="edesc"></textarea>
       </div>
     </div>
+
     <div class="modal-footer">
       <button class="btn cancel" onclick="closeEventModal()">Cancel</button>
       <button class="btn" onclick="saveEvent()">Save</button>
@@ -62,56 +98,212 @@
   </div>
 </div>
 
-<script>
-let eIndex = -1;
+<!-- ================= EVENT APPLICANTS MODAL ================= -->
+<div class="modal-bg" id="eventApplicantModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="eventApplicantTitle">Applicants</h2>
+      <button class="btn cancel" onclick="closeEventApplicantModal()">X</button>
+    </div>
 
-function loadEvents(){
-  return JSON.parse(localStorage.getItem("tnp_events") || "[]");
-}
-function saveEvents(data){
-  localStorage.setItem("tnp_events", JSON.stringify(data));
-}
+    <div class="modal-body">
+      <button class="add-btn" onclick="exportEventApplicantsPDF()">
+        Export Applicants PDF
+      </button>
+      <br><br>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Year</th>
+            <th>Branch</th>
+          </tr>
+        </thead>
+        <tbody id="eventApplicantTable"></tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn cancel" onclick="closeEventApplicantModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= VARIABLES ================= */
+
+let editIndex = -1;
+let currentEventIndex = -1;
+
+const EVENT_KEY = "tnp_events";
+const EVENT_APP_KEY = "tnp_event_applicants";
+
+/* ================= STORAGE ================= */
+
+const loadEvents = () =>
+  JSON.parse(localStorage.getItem(EVENT_KEY) || "[]");
+
+const saveEvents = d =>
+  localStorage.setItem(EVENT_KEY, JSON.stringify(d));
+
+const loadApplicants = () =>
+  JSON.parse(localStorage.getItem(EVENT_APP_KEY) || "{}");
+
+/* ================= RENDER ================= */
+
 function renderEvents(){
-  const data = loadEvents();
   eventTable.innerHTML = "";
-  data.forEach((e,i)=>{
+  loadEvents().forEach((e,i)=>{
     eventTable.innerHTML += `
       <tr>
         <td>${e.name}</td>
+        <td>${e.location}</td>
         <td>${e.date}</td>
-        <td>${e.venue}</td>
+        <td>${e.duration}</td>
+        <td>${e.year}</td>
+        <td>${e.branch}</td>
+        <td>${e.desc}</td>
         <td>
           <button class="edit-btn" onclick="editEvent(${i})">Edit</button>
-          <button class="del-btn" onclick="delEvent(${i})">Delete</button>
+          <button class="del-btn" onclick="deleteEvent(${i})">Delete</button>
+          <button class="edit-btn" onclick="viewEventApplicants(${i})">
+            Applicants
+          </button>
         </td>
-      </tr>`;
+      </tr>
+    `;
   });
 }
+
+/* ================= EVENT MODAL ================= */
+
 function openEventModal(){
-  eIndex=-1; ename.value=""; edate.value=""; evenue.value="";
-  eventTitle.innerText="Add Event";
-  eventModal.style.display="flex";
+  editIndex = -1;
+  eventTitle.innerText = "Add Event";
+  document.querySelectorAll("#eventModal input, #eventModal textarea")
+    .forEach(i=>i.value="");
+  eventModal.style.display = "flex";
 }
-function closeEventModal(){ eventModal.style.display="none"; }
+
+function closeEventModal(){
+  eventModal.style.display = "none";
+}
+
 function saveEvent(){
-  const data=loadEvents();
-  const obj={name:ename.value,date:edate.value,venue:evenue.value};
-  if(!obj.name){alert("Name required");return;}
-  eIndex==-1?data.push(obj):data[eIndex]=obj;
-  saveEvents(data); closeEventModal(); renderEvents();
+  const obj = {
+    name: ename.value,
+    location: elocation.value,
+    date: edate.value,
+    duration: eduration.value,
+    year: eyear.value,
+    branch: ebranch.value,
+    desc: edesc.value
+  };
+
+  if(!obj.name){
+    alert("Event name required");
+    return;
+  }
+
+  const data = loadEvents();
+  editIndex === -1 ? data.push(obj) : data[editIndex] = obj;
+  saveEvents(data);
+  closeEventModal();
+  renderEvents();
 }
+
 function editEvent(i){
-  const e=loadEvents()[i]; eIndex=i;
-  ename.value=e.name; edate.value=e.date; evenue.value=e.venue;
-  eventTitle.innerText="Edit Event";
-  eventModal.style.display="flex";
+  const e = loadEvents()[i];
+  editIndex = i;
+
+  ename.value = e.name;
+  elocation.value = e.location;
+  edate.value = e.date;
+  eduration.value = e.duration;
+  eyear.value = e.year;
+  ebranch.value = e.branch;
+  edesc.value = e.desc;
+
+  eventTitle.innerText = "Edit Event";
+  eventModal.style.display = "flex";
 }
-function delEvent(i){
-  if(confirm("Delete?")){
-    const d=loadEvents(); d.splice(i,1); saveEvents(d); renderEvents();
+
+function deleteEvent(i){
+  if(confirm("Delete this event?")){
+    const d = loadEvents();
+    d.splice(i,1);
+    saveEvents(d);
+    renderEvents();
   }
 }
+
+/* ================= EVENT APPLICANTS ================= */
+
+function viewEventApplicants(i){
+  currentEventIndex = i;
+  const apps = loadApplicants()[i] || [];
+
+  eventApplicantTitle.innerText =
+    "Applicants for: " + loadEvents()[i].name;
+
+  eventApplicantTable.innerHTML = "";
+
+  if(apps.length === 0){
+    eventApplicantTable.innerHTML =
+      `<tr><td colspan="5">No applicants</td></tr>`;
+  } else {
+    apps.forEach(a=>{
+      eventApplicantTable.innerHTML += `
+        <tr>
+          <td>${a.name}</td>
+          <td>${a.email}</td>
+          <td>${a.phone}</td>
+          <td>${a.year}</td>
+          <td>${a.branch || ""}</td>
+        </tr>
+      `;
+    });
+  }
+
+  eventApplicantModal.style.display = "flex";
+}
+
+function closeEventApplicantModal(){
+  eventApplicantModal.style.display = "none";
+}
+
+/* ================= EXPORT PDF ================= */
+
+function exportEventApplicantsPDF(){
+  const apps = loadApplicants()[currentEventIndex] || [];
+  if(apps.length === 0){
+    alert("No applicants to export");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.text("Event Applicants", 14, 15);
+
+  doc.autoTable({
+    startY: 25,
+    head: [["Name","Email","Phone","Year","Branch"]],
+    body: apps.map(a=>[
+      a.name,a.email,a.phone,a.year,a.branch || ""
+    ]),
+    theme: "grid"
+  });
+
+  doc.save("Event_Applicants.pdf");
+}
+
+/* ================= INIT ================= */
 renderEvents();
 </script>
+
 </body>
 </html>
